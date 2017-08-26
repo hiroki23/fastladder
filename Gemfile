@@ -36,7 +36,7 @@ else
 end
 
 gem 'addressable', require: 'addressable/uri'
-gem 'coffee-rails', '~> 4.1.0'
+gem 'coffee-rails'
 gem 'feed_searcher', '>= 0.0.6'
 gem 'feedjira'
 gem 'haml'
@@ -47,7 +47,7 @@ gem 'jquery-rails'
 gem 'mini_magick'
 gem 'nokogiri'
 gem 'opml', git: 'https://github.com/fastladder/opml'
-gem 'sass-rails', '~> 5.0.0'
+gem 'sass-rails'
 gem 'settingslogic'
 gem 'uglifier', '>= 1.3.0'
 
