@@ -64,6 +64,9 @@ group :development do
   gem 'pry-rails'
   gem 'pry-doc'
   gem 'quiet_assets'
+  gem 'spring'
+  gem 'spring-commands-rspec'
+  gem 'spring-commands-rubocop'
 end
 
 group :test do
