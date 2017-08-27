@@ -6,20 +6,20 @@ describe RpcController do
 
   before do
     member.set_auth_key
-    allow_any_instance_of(Member).to receive(:subscribe_feed).and_return(FactoryGirl.create(:subscription))
+    allow_any_instance_of(Member).to receive(:subscribe_feed).and_return(FactoryGirl.create(:subscription, member: member))
   end
 
   describe 'POST /update_feed' do
     let(:params) { FactoryGirl.attributes_for(:item) }
 
     it 'renders json' do
-      post :update_feed, { api_key: member.auth_key, json: params.to_json }
+      post :update_feed, params: { api_key: member.auth_key, json: params.to_json }
       expect(response.body).to be_json
     end
 
     it 'creates new item' do
       expect {
-        post :update_feed, { api_key: member.auth_key, json: params.to_json }
+        post :update_feed, params: { api_key: member.auth_key, json: params.to_json }
       }.to change {
         Item.count
       }.by(1)
@@ -29,7 +29,7 @@ describe RpcController do
       let(:params){FactoryGirl.attributes_for(:item).slice(:link, :title, :body, :author, :category, :published_date).merge( feedtitle: 'malamalamala', api_key: member.auth_key, feedlink: 'http://ma.la')}
       it 'creates new item' do
         expect {
-          post :update_feed, { api_key: member.auth_key, json: params.to_json }
+          post :update_feed, params: { api_key: member.auth_key, json: params.to_json }
         }.to change {
           Item.count
         }.by(1)
@@ -40,7 +40,7 @@ describe RpcController do
       let(:params) { FactoryGirl.attributes_for(:item).slice(:link, :title, :body, :author, :category, :published_date) }
       it 'creates new item' do
         expect {
-          post :update_feed, { api_key: member.auth_key, json: params.to_json }
+          post :update_feed, params: { api_key: member.auth_key, json: params.to_json }
         }.to change {
           Item.count
         }.by(1)
@@ -51,7 +51,7 @@ describe RpcController do
       let(:params) { FactoryGirl.attributes_for(:item).slice(:link, :title, :body, :author, :category, :published_date).merge( feedtitle: 'malamalamala', feedlink: 'http://ma.la') }
       it 'creates new item' do
         expect {
-          post :update_feed, { api_key: member.auth_key, json: params.to_json }
+          post :update_feed, params: { api_key: member.auth_key, json: params.to_json }
         }.to change {
           Item.count
         }.by(1)
@@ -63,7 +63,7 @@ describe RpcController do
 
       it 'creates a new item with guid == link' do
         expect {
-          post :update_feed, { api_key: member.auth_key, json: params.to_json }
+          post :update_feed, params: { api_key: member.auth_key, json: params.to_json }
         }.to change {
           Item.find_by(guid: params[:link]).nil?
         }.from(true).to(false)

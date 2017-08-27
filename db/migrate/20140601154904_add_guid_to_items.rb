@@ -1,4 +1,4 @@
-class AddGuidToItems < ActiveRecord::Migration
+class AddGuidToItems < ActiveRecord::Migration[5.1]
   def up
     add_column :items, :guid, :string
     remove_index :items, [:feed_id, :link]

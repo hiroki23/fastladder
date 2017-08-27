@@ -15,7 +15,7 @@
 #  updated_on       :datetime         not null
 #
 
-class CrawlStatus < ActiveRecord::Base
+class CrawlStatus < ApplicationRecord
   belongs_to :feed
 
   scope :status_ok, ->{ where(status: Fastladder::Crawler::CRAWL_OK) }

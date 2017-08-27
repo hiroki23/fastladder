@@ -60,3 +60,9 @@ ja:
   leave it uncategorized: 未分類
   uncategorized: 未分類
   New Folder Name: 新しいフォルダ名を入力してください
+
+  account:
+    password: パスワード
+    apikey: APIキー
+    backup: バックアップ
+    share: シェア

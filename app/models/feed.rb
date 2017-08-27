@@ -19,7 +19,7 @@
 require "open-uri"
 require "tempfile"
 
-class Feed < ActiveRecord::Base
+class Feed < ApplicationRecord
   has_one :crawl_status
   has_one :favicon
   has_many :items

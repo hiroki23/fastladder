@@ -7,6 +7,6 @@
 #  image   :binary
 #
 
-class Favicon < ActiveRecord::Base
+class Favicon < ApplicationRecord
   belongs_to :feed
 end

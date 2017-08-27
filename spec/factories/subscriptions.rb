@@ -6,7 +6,7 @@ FactoryGirl.define do
   end
 
   factory :unread_subscription, parent: :subscription do
-    feed { FactoryGirl.create(:feed, items: [FactoryGirl.create(:item, stored_on: 1.hour.ago)]) }
+    feed { FactoryGirl.create(:feed, items: [FactoryGirl.build(:item, stored_on: 1.hour.ago)]) }
     has_unread true
     viewed_on { 2.hour.ago }
   end

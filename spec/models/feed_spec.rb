@@ -72,20 +72,20 @@ describe Feed do
     let(:favicon) { open(File.expand_path(File.join(File.dirname(__FILE__), '..', 'fixtures', 'favicon.ico'))).read }
 
     it "favicon.ico store as PNG" do
-      stub_request(:any, /.*/).to_return(headers: { 'Content-Type' => 'image/vnd.microsoft.icon' }, body: favicon)
+      WebMock.stub_request(:any, /.*/).to_return(headers: { 'Content-Type' => 'image/vnd.microsoft.icon' }, body: favicon)
       feed.fetch_favicon!
       expect(feed.favicon.image.start_with?("\x89PNG\r\n".force_encoding('ascii-8bit'))).to eq(true)
     end
 
     it "if favicon url is *.gif and returning vnd.microsoft.icon" do
-      stub_request(:any, /.*/).to_return(body: favicon, headers: {"Content-Type" => 'image/vnd.microsoft.icon'})
+      WebMock.stub_request(:any, /.*/).to_return(body: favicon, headers: {"Content-Type" => 'image/vnd.microsoft.icon'})
       allow(feed).to receive(:favicon_list).and_return([Addressable::URI.parse("http://example.com/favicon?file=favicon.gif")])
       feed.fetch_favicon!
       expect(feed.favicon.image.start_with?("\x89PNG\r\n".force_encoding('ascii-8bit'))).to eq(true)
     end
 
     it 'logs errors and does `next` when favicon.ico is not valid data' do
-      stub_request(:any, /.*/).to_return(body: "invalid image data")
+      WebMock.stub_request(:any, /.*/).to_return(body: "invalid image data")
       expect(MiniMagick::Image).to receive(:open).at_least(:once).and_raise(MiniMagick::Error)
       expect(Rails.logger).to receive(:error).at_least(:once)
       feed.fetch_favicon!
@@ -97,7 +97,7 @@ describe Feed do
 
     it "favicon url detection from feed.link" do
       feed = FactoryGirl.create(:feed, link: "http://example.com/")
-      stub_request(:get, feed.link).to_return(
+      WebMock.stub_request(:get, feed.link).to_return(
         body: <<-HTML
           <html>
             <head>
@@ -107,7 +107,7 @@ describe Feed do
           </html>
         HTML
       )
-      stub_request(:get, feed.feedlink).to_return(body: "")
+      WebMock.stub_request(:get, feed.feedlink).to_return(body: "")
       expect(feed.favicon_list).to include(favicon_url)
     end
   end
@@ -116,7 +116,7 @@ describe Feed do
     context "crawl_status" do
       before {
         @ok_feed = FactoryGirl.create(:crawl_ok_feed)
-        @ng_feed = FactoryGirl.create(:crawl_ok_feed, crawl_status: FactoryGirl.create(:crawl_status, status: Fastladder::Crawler::CRAWL_NOW))
+        @ng_feed = FactoryGirl.create(:crawl_ok_feed, crawl_status: FactoryGirl.build(:crawl_status, status: Fastladder::Crawler::CRAWL_NOW))
       }
       it { expect(Feed.crawlable).to include(@ok_feed)}
       it { expect(Feed.crawlable).not_to include(@ng_feed)}
@@ -133,9 +133,9 @@ describe Feed do
 
     context "crawled_on" do
       before {
-        @ok_feed_1 = FactoryGirl.create(:crawl_ok_feed, crawl_status: FactoryGirl.create(:crawl_status, crawled_on: nil))
-        @ok_feed_2 = FactoryGirl.create(:crawl_ok_feed, crawl_status: FactoryGirl.create(:crawl_status, crawled_on: 31.minutes.ago))
-        @ng_feed = FactoryGirl.create(:crawl_ok_feed, crawl_status: FactoryGirl.create(:crawl_status, crawled_on: 29.minutes.ago))
+        @ok_feed_1 = FactoryGirl.create(:crawl_ok_feed, crawl_status: FactoryGirl.build(:crawl_status, crawled_on: nil))
+        @ok_feed_2 = FactoryGirl.create(:crawl_ok_feed, crawl_status: FactoryGirl.build(:crawl_status, crawled_on: 31.minutes.ago))
+        @ng_feed = FactoryGirl.create(:crawl_ok_feed, crawl_status: FactoryGirl.build(:crawl_status, crawled_on: 29.minutes.ago))
       }
       it { expect(Feed.crawlable).to include(@ok_feed_1, @ok_feed_2)}
       it { expect(Feed.crawlable).not_to include(@ng_feed)}
@@ -145,9 +145,12 @@ describe Feed do
   describe "#avg_rate" do
     before {
       @feed = FactoryGirl.create(:feed)
-      FactoryGirl.create(:subscription, feed: @feed, member_id: 1, rate: 5)
-      FactoryGirl.create(:subscription, feed: @feed, member_id: 2, rate: 5)
-      FactoryGirl.create(:subscription, feed: @feed, member_id: 3, rate: 3)
+      member1 = FactoryGirl.create(:member, username: 'user1', password: 'pass1', password_confirmation: 'pass1')
+      member2 = FactoryGirl.create(:member, username: 'user2', password: 'pass2', password_confirmation: 'pass2')
+      member3 = FactoryGirl.create(:member, username: 'user3', password: 'pass3', password_confirmation: 'pass3')
+      FactoryGirl.create(:subscription, feed: @feed, member: member1, rate: 5)
+      FactoryGirl.create(:subscription, feed: @feed, member: member2, rate: 5)
+      FactoryGirl.create(:subscription, feed: @feed, member: member3, rate: 3)
     }
     it { expect(@feed.avg_rate).to eq(4) }
   end

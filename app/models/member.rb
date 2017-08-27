@@ -18,7 +18,7 @@
 
 require "digest/sha1"
 
-class Member < ActiveRecord::Base
+class Member < ApplicationRecord
   # Virtual attribute for the unencrypted password
   attr_accessor :password
   serialize :config_dump

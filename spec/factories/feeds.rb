@@ -11,8 +11,8 @@ FactoryGirl.define do
     description 'はてな使ったら負けかなと思っている'
   end
 
-  factory :crawl_ok_feed, parent: :feed do
-    crawl_status { FactoryGirl.create(:crawl_status, status: Fastladder::Crawler::CRAWL_OK) }
+  factory :crawl_ok_feed, parent: :feed do |mfeed|
+    crawl_status { FactoryGirl.build(:crawl_status, status: Fastladder::Crawler::CRAWL_OK) }
     subscribers_count 1
   end
 

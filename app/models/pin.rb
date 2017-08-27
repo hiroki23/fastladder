@@ -10,7 +10,7 @@
 #  updated_on :datetime         not null
 #
 
-class Pin < ActiveRecord::Base
+class Pin < ApplicationRecord
   belongs_to :member
 
   scope :past, ->(num){ order("created_on").limit(num) }

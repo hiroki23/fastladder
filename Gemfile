@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-gem 'rails', '4.2.9'
+gem 'rails', '5.1.3'
 
 # Include database gems for the adapters found in the database
 # configuration file or DATABASE_URL
@@ -37,19 +37,19 @@ end
 
 gem 'addressable', require: 'addressable/uri'
 gem 'coffee-rails'
-gem 'feed_searcher', '>= 0.0.6'
+gem 'feed_searcher'
 gem 'feedjira'
 gem 'haml'
 gem 'slim'
 gem 'i18n-js'
-gem 'jbuilder', '~> 2.0'
+gem 'jbuilder'
 gem 'jquery-rails'
 gem 'mini_magick'
 gem 'nokogiri'
-gem 'opml', git: 'https://github.com/fastladder/opml'
+gem 'opml', git: 'https://github.com/hiroki23/opml'
 gem 'sass-rails'
 gem 'settingslogic'
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier'
 
 if ENV['NEW_RELIC_LICENSE_KEY']
   gem 'newrelic_rpm'
@@ -57,23 +57,25 @@ end
 
 group :development, :test do
   gem 'pry-byebug'
+#  gem 'rubocop'
 end
 
 group :development do
   gem 'annotate'
   gem 'pry-rails'
   gem 'pry-doc'
-  gem 'quiet_assets'
+
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'spring-commands-rubocop'
+  gem 'listen'
 end
 
 group :test do
   gem 'capybara'
   gem 'coveralls', require: false
   gem 'factory_girl_rails'
-  gem 'konacha'
+#  gem 'konacha'
   gem 'launchy'
   gem 'poltergeist'
   gem 'rspec-activemodel-mocks'
@@ -83,6 +85,7 @@ group :test do
   gem 'sinon-rails'
   gem 'puma'
   gem 'webmock'
+  gem 'rails-controller-testing'
 end
 
 group :production do
