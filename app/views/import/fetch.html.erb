@@ -32,7 +32,7 @@ function s_toggle(mode,tab){
 }
 </script>
 <div style="padding:5px 15px 0;text-align:left;">
-	<h2 class="px18 guidesubttl" style="border:none">Subscription list</h2>
+	<h2 class="px18 guidesubttl" style="border:none">インポートするフィードをチェックしてください</h2>
 </div>
 
 <% if @opml.present? -%>
@@ -40,19 +40,19 @@ function s_toggle(mode,tab){
 <%= f.hidden_field :api_key, name: "ApiKey", value: session[:session_id] %>
 <div id="registerbox" style="width:auto;margin:0 10px">
 	<div id="import_tab" class="tabs" style="text-align:left;padding-left:15px;">
-		<div class="tab tab-active" onclick="s_toggle('all',this)">All<span class="num">(<%= all_count = (all_items = @folders.values.flatten).length %>)</span></div>
-		<div class="tab" onclick="s_toggle('not_subscribed',this)">Without Subscribed feed<span class="num">(<%= unsubscribe_count = all_items.reject {|item| item[:subscribed] }.length %>)</span></div>
-		<div class="tab" onclick="s_toggle('subscribed',this)">Subscribed<span class="num">(<%= all_count - unsubscribe_count %>)</span></div>
+		<div class="tab tab-active" onclick="s_toggle('all',this)">全て表示<span class="num">(<%= all_count = (all_items = @folders.values.flatten).length %>)</span></div>
+		<div class="tab" onclick="s_toggle('not_subscribed',this)">未登録のフィード<span class="num">(<%= unsubscribe_count = all_items.reject {|item| item[:subscribed] }.length %>)</span></div>
+		<div class="tab" onclick="s_toggle('subscribed',this)">登録済みのフィード<span class="num">(<%= all_count - unsubscribe_count %>)</span></div>
 	</div>
 
 	<div class="importbox">
 <% @folders.each_with_index do |(folder_name, items), i| %>
 	<h3 class="px18 importttl">
-		<%= folder_name.present? ? folder_name : "Uncategolized" %>
+		<%= folder_name.present? ? folder_name : "未分類" %>
 		<span style="font-size:12px;color:#05308c;font-weight:normal;padding-left:10px;">
-			<span class="button" onclick="selectfolder.call(this,event)" id="button_<%= i %>">Select All</span>
+			<span class="button" onclick="selectfolder.call(this,event)" id="button_<%= i %>">すべて選択</span>
 			&nbsp;|&nbsp;
-			<span class="button" onclick="unselectfolder.call(this,event)" id="button_<%= i %>">None</span>
+			<span class="button" onclick="unselectfolder.call(this,event)" id="button_<%= i %>">すべて解除</span>
 		</span>
 	</h3>
 
@@ -61,7 +61,7 @@ function s_toggle(mode,tab){
 		<li class="<%= "not_" unless item[:subscribed]-%>subscribed">
 		<% if item[:subscribed] -%>
 			<%= link_to item[:title], item[:link] %>
-			<span style="color: #f00;">[Subscribed]</span>
+			<span style="color: #f00;">[既に登録しています]</span>
 		<% else -%>
 			<%= f.hidden_field :titles, name: "titles[#{i}]", value: item[:title] %>
 			<%= f.hidden_field :links, name: "links[#{i}]", value: item[:link] %>
@@ -76,7 +76,7 @@ function s_toggle(mode,tab){
 </div>
 
 <div style="width:100px;margin:15px auto 0;padding-bottom:5px;">
-	<%= f.submit " Import " %>
+	<%= f.submit " インポート " %>
 </div>
 <% end -%>
 <% else -%>

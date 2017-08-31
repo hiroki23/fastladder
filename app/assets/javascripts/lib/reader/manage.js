@@ -42,9 +42,9 @@ updater("manage_select",function(){
 			removeClass("manage_control", "grayout");
 			app.state.manage_disabled = false;
 		}
-		Manage.message(size + I18n.t(' items selected'));
+		Manage.message(size + ' ' + I18n.t('items selected'));
 	} else {
-		Manage.message(I18n.t('Select item(s) you want to edit'));
+		Manage.message(I18n.t('Select items you want to edit'));
 		addClass("manage_control", "grayout");
 		Form.disable_all("manage_control");
 		app.state.manage_disabled = true;
@@ -451,7 +451,7 @@ updater("update_folder",function(){
 		},
 		after: function(res,req){
 			var fn = folder.id2name[req.folder_id];
-			message(fn + I18n.t(' deleted'));
+			message(fn + ' を削除しました');
 			MF.folder_id = null;
 			folder = null;
 			// フォルダ一覧を再読み込みして表示のみ更新
@@ -513,7 +513,7 @@ Manage.Folder = {
 		if(!name) return;
 		var api = new LDR.API("/api/folder/create");
 		api.post({name:name},function(res){
-			message('folder created');
+			message('フォルダを作成しました');
 			folder = null;
 			callback();
 		});

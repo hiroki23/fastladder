@@ -8,51 +8,51 @@
 
 <div id="content">
 <div class="share">
-<h2>Manage Sharing</h2>
+<h2>フィードの共有設定</h2>
 <div class="share_body">
 	<div class="status">
 		<% if current_member.public %>
-			<button onclick="set_member_public(0);return false">Disable Sharing</button>
+			<button onclick="set_member_public(0);return false">共有機能を無効にする</button>
 		<% else %>
-			<button onclick="set_member_public(1);return false">Enable Sharing</button>
+			<button onclick="set_member_public(1);return false">共有機能を有効にする</button>
 		<% end %>
 		<ul>
-			<li>Sharing: <span id="member_public"><%= current_member.public ? "ON" : "OFF" %></span>
-			<% if current_member.public %>(<%= link_to("Show public subscriptions", user_path(current_member.username)) %>)<% end %>
+			<li>マイフィードの共有: <span id="member_public"><%= current_member.public ? "有効" : "無効" %></span>
+			<% if current_member.public %>(<%= link_to("表示", user_path(current_member.username)) %>)<% end %>
 			</li>
-			<li>Public feeds: <span id="public_subs_count"></span></li>
-		 	<li>Private feeds: <span id="private_subs_count"></span></li>
+			<li>公開設定のフィード: <span id="public_subs_count"></span></li>
+		 	<li>非公開のフィード: <span id="private_subs_count"></span></li>
 		</ul>
 	</div>
 	<div class="search_form">
 		<form onsubmit="do_search();return false;">
 		<table>
-			<tr><td>Target</td>
+			<tr><td>検索対象</td>
 			<td>
 				<input type="radio" name="search_from" id="filter_from_all" checked>
-				<label for="filter_from_all">All</label>
+				<label for="filter_from_all">全てのフィードから</label>
 				<input type="radio" name="search_from" id="filter_from_public">
-				<label for="filter_from_public">Public feeds</label>
+				<label for="filter_from_public">公開設定のフィードか</label>
 				<input type="radio" name="search_from" id="filter_from_private">
-				<label for="filter_from_private">Private feeds</label>
+				<label for="filter_from_private">非公開のフィードから</label>
 			</td></tr>
-			<tr><td>Subscribers</td>
+			<tr><td>購読者数</td>
 			<td>
-				over <input type="text" value="" id="filter_subscriber_min" size="4"> subscribers and
-				under <input type="text" value="" id="filter_subscriber_max" size="4"> subscribers
-				(example: 	
-					<span onclick="set_query({subscriber_max:'',subscriber_min:100});" class="query_sample">over 100 subscribers</span>
-					<span onclick="set_query({subscriber_max:10,subscriber_min:''});" class="query_sample">under 10 subscribers</span>)
+				<input type="text" value="" id="filter_subscriber_min" size="4"> 人以上
+				<input type="text" value="" id="filter_subscriber_max" size="4"> 人以下
+				(例: 	
+					<span onclick="set_query({subscriber_max:'',subscriber_min:100});" class="query_sample">100人以上</span>
+					<span onclick="set_query({subscriber_max:10,subscriber_min:''});" class="query_sample">10人以下</span>)
 			</td></tr>
-			<tr><td>Title or URL</td>
+			<tr><td>タイトルまたはURL</td>
 			<td><input type="text" value="" id="filter_string">
 			</td></tr>
 		</table>
 		<div class="mspace">
 		<table>
 			<tr>
-				<th>Folders (<span class="query_sample" onclick="mspace_reset('folder')">Select all</span>)</th>
-				<th>Ratings (<span class="query_sample" onclick="mspace_reset('rate')">Select all</span>)</th>
+				<th>フォルダ (<span class="query_sample" onclick="mspace_reset('folder')">全て選択</span>)</th>
+				<th>レート (<span class="query_sample" onclick="mspace_reset('rate')">全て選択</span>)</th>
 			</tr>
 			<tr>
 				<td><div id="mspace_folders"></div></td>
@@ -62,9 +62,10 @@
 		</div>
 		</form>
 	</div>
-	<h3>Result: <span id="filtered_subs_count"></span> <button class="select_all" onclick="select_all()">Select all</button></h3>
+	<h3>条件に一致するフィード: <span id="filtered_subs_count"></span> <button class="select_all" onclick="select_all()">全て選択</button></h3>
 	<div class="buttons">
-		<button onclick="set_public(1)">Set to Public</button><button onclick="set_public(0)">Set to Private</button>
+    選択されたフィードを → 
+		<button onclick="set_public(1)">公開する</button><button onclick="set_public(0)">非公開にする</button>
 		<span id="set_public_progress"></span>
 	</div>
 	<div id="filtered_subs"></div>

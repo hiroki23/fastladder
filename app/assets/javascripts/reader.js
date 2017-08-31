@@ -11,5 +11,5 @@
 //= require lib/reader/view
 //= require lib/reader/main
 //= require lib/reader/manage
-//= require lib/reader/widgets_en
+//= require lib/reader/widgets
 //= require lib/reader/addon

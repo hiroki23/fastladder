@@ -1,13 +1,13 @@
 <div id="content">
-	<h2>Account</h2>
+	<h2>アカウント</h2>
 	<%= render "navi" %>
 	<div class="account_form">
-	<h4>Account setting</h4>
+	<h4>アカウント情報</h4>
 	<dl>
 		<dt><label>User ID</label></dt>
 		<dd><%= current_member.username %></dd>
 		<dt><label>Password</label></dt>
-		<dd>******** <%= link_to "Edit", account_password_path %></dd>
+		<dd>******** <%= link_to "変更", account_password_path %></dd>
 	</dl>
 	</div>
 </div>

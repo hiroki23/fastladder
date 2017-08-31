@@ -28,8 +28,8 @@ function print_ads(ads){
 new function(){
 	if(I18n.locale === 'en'){ return }
 	// extension for livedoor clip
-	KeyConfig.toggle_clip  = "b";
-	KeyConfig.instant_clip = "i";
+	LDR.KeyConfig.toggle_clip  = "b";
+	LDR.KeyConfig.instant_clip = "i";
 }
 
 app.state.clipped_item = new Cache();
@@ -272,17 +272,10 @@ Linkage.push({
 	url  : 'http://del.icio.us/post?url=[[url]];title=[[title]]'
 });
 Linkage.push({
-	name : 'Buzzurl',
-	url  : 'http://buzzurl.jp/config/add/confirm?url=[[url]]&title=[[title]]&comment=[[select]]'
-});
-Linkage.push({
-	name : 'Yahoo!ブックマーク',
-	url  : 'http://bookmarks.yahoo.co.jp/bookmarklet/showpopup?t=[[title]]&u=[[url]]&ei=UTF-8'
-});
-Linkage.push({
 	name : 'Google Bookmarks',
 	url  : 'http://www.google.com/bookmarks/mark?op=edit&bkmk=[[url]]&title=[[title]]'
 });
+// TODO: 不要だろうが…
 Linkage.push({
 	name : 'livedoor Blog',
 	url  : 'http://cms.blog.livedoor.com/cms/article/add?bm=1&b=[[select]]&t=[[title]]&l=[[url]]&f=%3Ca%20href%3D%22%24url%24%22%3E%24title%24%3C%2Fa%3E%3Cblockquote%3E%24body%24%3C%2Fblockquote%3E&tb=1'
@@ -298,7 +291,7 @@ updater("custom_clip", function(){
 	Linkage.forEach(function(o,i,self){
 		var tree = (i==self.length-1) ? "└" : "├";
 		var op = new Option(tree + "　" + o.name, o.url);
-		sel.options[i+2] = op;
+		sel.options[i+1] = op;
 		// el.appendChild(op);
 	});
 });

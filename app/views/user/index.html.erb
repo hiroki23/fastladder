@@ -4,22 +4,23 @@
 <% end -%>
 <% end -%>
 <div id="content" class="page_user">
-<h2>User Information</h2>
+<h2>ユーザー情報</h2>
 <div id="content-inner">
 <div class="user_info">
 	<h3><%= @target_member.username %></h3>
 	<% if logged_in? and @target_member == current_member %>
 	<% if @target_member.public -%>
-	<p><%= link_to "Manage Sharing", share_path %></p>
+    <p><%= link_to "フィードの共有設定", share_path %></p>
 	<% else -%>
-	<p>Share-setting is disabled. This page is not accessible to others.<br />You may set publicity of your subscription from "<%= link_to "Manage Sharing", share_path %>"</p>
+    <p>フィードの公開設定は無効になっています。このページは他のユーザーから見えません。<br />
+    「<%= link_to "フィードの共有設定", share_path %>」から公開するフィードを設定できます。</p>
 	<% end -%>
 	<% end -%>
 
 	<div class="user_stats">
 		<ul>
-			<li>Total Subscriptions : <span id="total_subscribe_count"><%= @target_member.total_subscribe_count %></span></li>
-			<li>Public Subscriptions : <span id="public_subscribe_count"><%= @target_member.public_subscribe_count %></span></li> 
+			<li>登録フィード数 : <span id="total_subscribe_count"><%= @target_member.total_subscribe_count %> 件</span></li>
+			<li>公開フィード数 : <span id="public_subscribe_count"><%= @target_member.public_subscribe_count %> 件</span></li>
 		</ul>
 		<% if @target_member.public -%>
 		<ul class="link_rss">

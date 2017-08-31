@@ -15,3 +15,7 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 
 Rails.application.config.assets.precompile += %w( reader.js share.js subscribe.js )
 Rails.application.config.assets.precompile += %w( reader.css )
+
+files = Dir[Rails.root.join('app', 'assets', 'javascripts', 'i18n', '*.js')]
+files.map! { |file| file.sub(%r(#{Rails.root}/app/assets/javascripts/), '') }
+Rails.application.config.assets.precompile += files
