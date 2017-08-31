@@ -464,8 +464,8 @@ var Control = {
         app.config.set("reverse_mode", !app.config.reverse_mode);
         message(
             (app.config.reverse_mode)
-             ? 'Show older items first'
-             : 'Show newer items first'
+             ? '古い記事が上に表示されます。'
+             : '新しい記事が上に表示されます。'
         );
         rewrite_feed();
     },
@@ -473,9 +473,9 @@ var Control = {
         var o = get_active_item();
         toggleClass("right_body", "compact");
         if(contain(_$("right_body").className, "compact")){
-            message("expanded items / press c to collapse")
+            message("本文を非表示にしました。cで元に戻ります")
         } else {
-            message("collapsed items / press c to expand")
+            message("本文を表示しました。cで隠せます")
         }
         Control.scroll_to_offset(o);
     },
@@ -499,7 +499,7 @@ var Control = {
         update("folder_label");
         move_to(app.state.now_reading,folder,[
             message.bindArgs(
-                (folder ? 'Moved to ' + folder : 'Moved to Uncategolized')
+                (folder ? folder + 'に移動しました' : '未分類にしました')
             ),
             FlatMenu.hide
         ].asCallback());
@@ -947,6 +947,16 @@ var Control = {
         var old = app.config.current_font;
         if(num == 0){to = 14} else { to = old + num }
         app.config.set("current_font", to);
+
+        // event_trigger.js のコードをコピペ
+        setStyle("right_body", {
+            fontSize: app.config.current_font + "px"
+        });
+        if(_$("config_form")){
+            Form.fill("config_form", app.config);
+        }
+        update("show_all_button");
+        update(/mode_text.*/);
     },
     load_config: function(){},
     save_config: function(){},
@@ -1052,7 +1062,7 @@ function show_all_mouseover(){
     app.state.help_show = true;
     app.state.help_snap = this;
     var tmpl = I18n.t('show_all_help_message_tmpl');
-    app.state.help_message = tmpl.fill({state: app.config.show_all ? 'disabled' : 'enabled' });
+    app.state.help_message = tmpl.fill({state: app.config.show_all ? '無効' : '有効' });
     update("help_window");
 }
 function show_all_mouseout(){

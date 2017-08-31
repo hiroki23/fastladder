@@ -22,18 +22,22 @@ describe Subscription do
   describe 'creation' do
     it 'update subscribers count' do
       feed = stub_model(Feed)
+      member = stub_model(Member)
       expect(feed).to receive(:update_subscribers_count)
 
       subscription = Subscription.new
       subscription.feed = feed
+      subscription.member = member
       subscription.save
     end
 
     it 'set default value' do
       feed = stub_model(Feed)
+      member = stub_model(Member)
 
       subscription = Subscription.new
       subscription.feed = feed
+      subscription.member = member
       subscription.public = nil
       subscription.save
 
@@ -44,8 +48,10 @@ describe Subscription do
   describe 'destroy' do
     it 'update subscribers count' do
       feed = stub_model(Feed)
+      member = stub_model(Member)
       subscription = Subscription.new
       subscription.feed = feed
+      subscription.member = member
       subscription.save
 
       expect(feed).to receive(:update_subscribers_count)

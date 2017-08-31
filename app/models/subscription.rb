@@ -15,10 +15,10 @@
 #  updated_on    :datetime         not null
 #
 
-class Subscription < ActiveRecord::Base
+class Subscription < ApplicationRecord
   belongs_to :member
   belongs_to :feed
-  belongs_to :folder
+  belongs_to :folder, optional: true
   before_create :update_public_fields
   after_create  :update_subscribers_count
   after_destroy :update_subscribers_count

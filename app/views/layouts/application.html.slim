@@ -1,8 +1,9 @@
-doctype 1.1
-html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+doctype 5
+html lang="ja"
   head
     title
       | Fastladder #{@title or [params[:controller].capitalize, (params[:action] if params[:action] != "index")].compact.join(": ")}
+    meta charset="utf-8"
     meta http-equiv="Content-Script-Type" content="text/javascript"
     meta http-equiv="Content-Style-Type" content="text/css"
     = stylesheet_link_tag "application"
@@ -32,3 +33,7 @@ html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
     javascript:
       var ApiKey = '#{escape_javascript(session[:session_id])}';
     = javascript_include_tag "application"
+    = javascript_include_tag "i18n/#{I18n.locale}"
+    javascript:
+      I18n.defaultLocale = "<%= I18n.default_locale %>";
+      I18n.locale = "<%= I18n.locale %>";

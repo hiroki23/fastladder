@@ -19,7 +19,7 @@
 #  updated_on     :datetime         not null
 #
 
-class Item < ActiveRecord::Base
+class Item < ApplicationRecord
   belongs_to :feed
   validates :guid, presence: true, uniqueness: { scope: :feed_id }
 

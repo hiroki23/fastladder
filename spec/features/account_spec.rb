@@ -11,7 +11,7 @@ feature 'Set auth key' do
     it 'sets auth key' do
       expect(member.auth_key).to be_blank
       click_link 'Account'
-      click_link 'API key'
+      click_link I18n.t('account.apikey')
       click_button 'Set or Change Auth Key'
       expect(member.reload.auth_key).to be_present
     end
@@ -27,7 +27,7 @@ feature 'Set auth key' do
       expect(member.auth_key).to be_present
       expect {
         click_link 'Account'
-        click_link 'API key'
+        click_link I18n.t('account.apikey')
         click_button 'Set or Change Auth Key'
       }.to change { member.reload.auth_key }
     end

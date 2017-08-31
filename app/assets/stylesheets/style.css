@@ -1867,7 +1867,7 @@ a.darkblue:active{color:#003492;}
 	height:13px;
 	padding:4px 5px 2px;
 	border:0px;
-	background:#fff url(http://image.livedoor.com/img/logo_new/search_bg.gif) repeat-x 0 0;
+	background:#fff url(/img/logo_new/search_bg.gif) repeat-x 0 0;
 	width:155px;
 	font-size:10px;
 }
@@ -1879,7 +1879,7 @@ input.sbox{
 	width:155px;
 	height:17px;
 	_height:19px;
-	background:#fff url(http://image.livedoor.com/img/logo_new/search_bg.gif) repeat-x 0 0;
+	background:#fff url(/img/logo_new/search_bg.gif) repeat-x 0 0;
 	border:0;
 	padding:3px 0px 0px 5px;
 }

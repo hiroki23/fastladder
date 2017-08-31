@@ -2,11 +2,11 @@
 	<div id="manage_table" style="position:relative;">
 	<table style="width:95%;margin:0 10px;clear:both">
 	<tr>
-		<th colspan="2" class="[[sortmode_title]]" rel="sort:title">Title</th>
-		<th nowrap class="[[sortmode_unread_count]]" rel="sort:unread_count">Unreads</th>
-		<th nowrap class="[[sortmode_folder]]" rel="sort:folder">Folder</th>
-		<th nowrap class="[[sortmode_rate]]" rel="sort:rate">Rating</th>
-		<th nowrap class="[[sortmode_modified_on]]" rel="sort:modified_on">Last update</th>
+		<th colspan="2" class="[[sortmode_title]]" rel="sort:title">タイトル</th>
+		<th nowrap class="[[sortmode_unread_count]]" rel="sort:unread_count">未読</th>
+		<th nowrap class="[[sortmode_folder]]" rel="sort:folder">フォルダ</th>
+		<th nowrap class="[[sortmode_rate]]" rel="sort:rate">レート</th>
+		<th nowrap class="[[sortmode_modified_on]]" rel="sort:modified_on">更新時刻</th>
 	</tr>
 </textarea>
 <textarea class="template" id="man_items">
@@ -31,7 +31,7 @@
 </textarea>
 
 <textarea class="template" id="man_offset">
-	[[ selecter_name ]]<small style="font-weight:normal">&nbsp;&nbsp;|&nbsp;&nbsp;[[ start ]] - [[ end ]] of [[ size ]] items</small>
+	[[ selecter_name ]]<small style="font-weight:normal">&nbsp;&nbsp;|&nbsp;&nbsp;[[size]]件中 [[ start ]] - [[ end ]]件目</small>
 </textarea>
 
 
@@ -39,19 +39,19 @@
 <form action="/api/folder/update" method="post" id="rename_form">
 	<input type="text" name="name" value="[[folder_name]]" style="width:20em">
 	<input type="hidden" name="folder_id" value="[[folder_id]]">
-	<input type="submit" value="Rename Folder">
+	<input type="submit" value="名前の変更">
 </form>
 <form action="/api/folder/delete" method="post" id="delete_form">
 	<input type="hidden" name="folder_id" value="[[folder_id]]">
-	<input type="submit" value="Delete Folder">
+	<input type="submit" value="削除">
 </form>
 </textarea>
 
-<h2 class="manage_h" style="margin-top:10px">Edit Feeds</h2>
+<h2 class="manage_h" style="margin-top:10px">フォルダ、アイテムの編集</h2>
 
 <!-- manage_folder -->
 <div id="manage_foldertools" style="clear:both; margin:5px 10px;padding:5px 5px 5px 30px; background:url('/img/icon/close.gif') no-repeat 7px 5px;">
-	<u class="button" onclick="MF.create_folder(updater('manage_folder'))">Create New Folder</u>
+	<u class="button" onclick="MF.create_folder(updater('manage_folder'))">新規フォルダ作成</u>
 	<div id="update_folder" style="display:inline"></div>
 </div>
 <div style="margin:10px;padding:0px;position:relative;background:#f5f5f5;">
@@ -75,24 +75,24 @@
 	<select id="move_to">
 	[[ folders ]]
 	</select>
-	<button onclick="Manage.Item.do_move()" title="Move to selected folder"
+	<button onclick="Manage.Item.do_move()" title="指定されたフォルダに移動します。"
 	 onmouseover="Manage.show_help.call(this,event)"
 	 onmouseout="Manage.hide_help()"
-	>Move to folder</button>
+	>移動</button>
 	</td>
 	<td valign="middle">
 	&nbsp;|&nbsp;
-	<u class="button" title="Mark as read"
+	<u class="button" title="選択されているフィードを既読にします。"
 	 style="background:url('/img/icon/check.gif') no-repeat 0 2px;padding-left:20px"
 	 onclick="this.disabled || MI.touch()"
 	 onmouseover="Manage.show_help.call(this,event)"
 	 onmouseout="Manage.hide_help()"
-	>Mark as read</u>
+	>既読にする</u>
 	&nbsp;&nbsp;|&nbsp;&nbsp;
-	<u class="button" style="background:url('/img/icon/trash.gif') no-repeat 0 2px;padding-left:22px" title="Unsubscribe" onclick="this.disabled || MI.unsubscribe()"
+	<u class="button" style="background:url('/img/icon/trash.gif') no-repeat 0 2px;padding-left:22px" title="選択されたフィードの購読を停止します。" onclick="this.disabled || MI.unsubscribe()"
 	 onmouseover="Manage.show_help.call(this,event)"
 	 onmouseout="Manage.hide_help()"
-	>Unsubscribe</u>
+	>購読停止</u>
 	</td>
 </tr>
 </table>
@@ -100,17 +100,17 @@
 <table width="95%" id="manage_item_tool">
 <tr>
 	<td width="200" height="32" nowrap>
-		 Find :&nbsp;<input type="text" onkeyup="MI.search.call(this,event)" style="width:150px">
+		 検索 :&nbsp;<input type="text" onkeyup="MI.search.call(this,event)" style="width:150px">
 	</td>
-	<td >Select :&nbsp;
-		<span class="button" onclick="MI.select_all()" title="Select all">Select All</span>&nbsp;&nbsp;|&nbsp;&nbsp;
-		<span class="button" onclick="MI.page_select()" title="Select / Unselect this page">Select this page</span>&nbsp;&nbsp;|&nbsp;&nbsp;
-		<span class="button" onclick="MI.reverse_select()" title="Reverse">Reverse</span>&nbsp;&nbsp;|&nbsp;&nbsp;
-		<span class="button" onclick="MI.clear_select()" title="Select None">None</span>
+	<td >選択 :&nbsp;
+		<span class="button" onclick="MI.select_all()" title="すべてのアイテムを選択します">全て選択</span>&nbsp;&nbsp;|&nbsp;&nbsp;
+		<span class="button" onclick="MI.page_select()" title="表示されているページを選択もしくは解除します">ページを選択</span>&nbsp;&nbsp;|&nbsp;&nbsp;
+		<span class="button" onclick="MI.reverse_select()" title="全てのアイテムの選択を反転します">全て反転</span>&nbsp;&nbsp;|&nbsp;&nbsp;
+		<span class="button" onclick="MI.clear_select()" title="全ての選択を解除します">全て解除</span>
 	</td>
 	<td width="50" nowrap align="right">
 		<select onchange="MI.perpage=(this.options[this.selectedIndex].value-0) || 20;update('manage_item')" style="font-size:1em">
-			<option>items / page</option>
+			<option>表示</option>
 			<option value="10">10</option>
 			<option value="20">20</option>
 			<option value="50">50</option>

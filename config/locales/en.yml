@@ -62,6 +62,9 @@ en:
   uncategorized: uncategorized
   New Folder Name: New Folder Name
 
+  # content manage
+  Folder Name: Folder Name
+
   account:
     password: Password
     apikey: API key

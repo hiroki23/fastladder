@@ -9,7 +9,7 @@
 #  updated_on :datetime         not null
 #
 
-class Folder < ActiveRecord::Base
+class Folder < ApplicationRecord
   belongs_to :member
   has_many :subscriptions, dependent: :nullify
   has_many :feeds, through: :subscriptions

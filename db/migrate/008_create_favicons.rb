@@ -1,4 +1,4 @@
-class CreateFavicons < ActiveRecord::Migration
+class CreateFavicons < ActiveRecord::Migration[5.1]
   def self.up
     create_table :favicons do |t|
       t.integer :feed_id, default: 0, null: false

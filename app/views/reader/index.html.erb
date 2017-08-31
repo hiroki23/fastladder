@@ -1,11 +1,9 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ja">
 <head>
 	<base target="_blank">
-	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<meta http-equiv="content-script-type" content="text/javascript">
-	<meta http-equiv="X-UA-Compatible" content="IE=8">
-	<title>Fastladder</title>
+	<meta charset="utf-8">
+	<title>Live D Reader</title>
 	<%= stylesheet_link_tag "reader" %>
 	<link rel="shortcut icon" href="/favicon.ico">
 </head>
@@ -21,7 +19,7 @@
 	<tr>
 		<td nowrap style="width:260px;height:32px;padding:4px 0;margin:0;text-align:left;white-space:nowrap;" valign="top">
 			<div id="reader_logo">
-				<a href="/" target="_self"><img src="/img/logo_small.gif" border="0"></a>
+				<a href="/" target="_self"><img src="/img/logo_small.gif"></a>
 			</div></td>
 		<td valign="top" style="position:relative;padding-top:0px;padding-left:5px;vertical-align:top;" nowrap>
 			<div id="message_box" style="position:absolute;margin-top:4px;z-index:10"><form style="display:inline;margin:0;padding:0" onsubmit="return false">
@@ -33,7 +31,7 @@
 				</td>
 				<td nowrap>
 					<span class="alert" id="message" style="background:#fff;font-size:12px;padding:0;">
-						welcome
+						ようこそ
 					</span>
 				</td></tr>
 				</table>
@@ -46,10 +44,10 @@
 	<tr>
 	<td align="right" nowrap  style="padding-left:12px;padding-top:2px;vertical-align:top;">
 		<div id="my_menu" style="line-height:100%;padding:4px 6px 0px 0;text-align:right">
-			<span id="welcome">welcome <%= link_to current_member.username, user_path(current_member.username) %></span>
-			|&nbsp;<%= link_to "Settings", "#config", onclick: "init_config();return false;" %>
-			|&nbsp;<%= link_to "Account", account_index_path, target: "_self" %>
-                        |&nbsp;<%= link_to "Sign Out", logout_path, target: "_self" %>
+			<span id="welcome">ようこそ、<%= link_to current_member.username, user_path(current_member.username) %> さん</span>
+			&nbsp; |&nbsp; <%= link_to "設定変更", "#config", onclick: "init_config();return false;" %>
+			&nbsp; |&nbsp; <%= link_to "アカウント", account_index_path, target: "_self" %>
+                       &nbsp;|&nbsp;&nbsp;<%= link_to "ログアウト", logout_path, target: "_self" %>
 		</div>
 	</td></tr>
 	</table>
@@ -65,12 +63,12 @@
 			 onmouseout="Control.pin_mouseout.call(this,event);"
 			 onclick="Control.pin_click.call(this,event);"
 			 style="background-image:url('/img/icon/pin.gif')" >&nbsp;<span id="pin_count"></span></li>
-			<li class="button icon" id="keyhelp_button" onclick="Control.toggle_keyhelp()" style="background-image:url('/img/icon/key_q.gif');width:auto;padding-left:26px;">&nbsp;Shortcut Keys<kbd>?</kbd></li>
+			<li class="button icon" id="keyhelp_button" onclick="Control.toggle_keyhelp()" style="background-image:url('/img/icon/key_q.gif');width:auto;padding-left:26px;"></li>
 			<li class="button icon" id="menu_button"
 			 style="text-align:right;width:auto;"
 			 onselectstart="return false"
 			 onmousedown="Control.toggle_menu.call(this,event);"
-			 ><span style="white-space:nowrap;">Others<span class="tri_icon">&nbsp;&nbsp;</span></span>
+			 ><span style="white-space:nowrap;">その他<span class="tri_icon">&nbsp;&nbsp;</span></span>
 			</li>
 		</ul>
 	</div>
@@ -99,11 +97,11 @@
 			<div class="toolbar" id="subs_buttons" style="padding : 6px 12px 0 12px;">
 				<table width="100%" height="20px"><tr>
 					<td width="30%">
-						<div onclick="Control.reload_subs()" id="reload_button" class="button" style="background-image:url('/img/icon/reload.gif')">Reload</div>
+						<div onclick="Control.reload_subs()" id="reload_button" class="button" style="background-image:url('/img/icon/reload.gif')">更新</div>
 					</td>
 					<td width="30%">
-						<div class="button" onclick="init_manage()" style="background-image:url('/img/icon/mylist.gif')">Edit</div></td>
-					<td width="30%"><div class="button" onclick="Control.show_subscribe_form()"  style="background-image:url('/img/icon/add.gif')">Add</div></td>
+						<div class="button" onclick="init_manage()" style="background-image:url('/img/icon/mylist.gif')">編集</div></td>
+					<td width="30%"><div class="button" onclick="Control.show_subscribe_form()"  style="background-image:url('/img/icon/add.gif')">追加</div></td>
 				</tr></table>
 			</div>
 			<div class="toolbar" id="subs_toolbar" style="padding-left:12px;padding-bottom:4px">
@@ -148,7 +146,7 @@
 		<div class="ads" id="ads_bottom" style="margin:30px 0;border-top:1px dotted #cacaca;line-height:16px"></div>
 		<br clear="all">
 		<div id="feed_paging" class="feed_navi">
-			<span id="feed_paging_prev" class="button" rel="Control:feed_page(-1)" style="padding:4px 5px 0px 5px">≪ Newer</span><span id="feed_paging_next" class="button" style="border-left:3px double #888;padding:4px 5px 0px 5px" rel="Control:feed_page(1)">Older ≫</span>
+			<span id="feed_paging_prev" class="button" rel="Control:feed_page(-1)" style="padding:4px 5px 0px 5px">≪ 新しい記事を表示</span><span id="feed_paging_next" class="button" style="border-left:3px double #888;padding:4px 5px 0px 5px" rel="Control:feed_page(1)">過去記事を表示 ≫</span>
 		</div>
 		<div id="scroll_padding"></div>
 	</div><!-- /right_bottom -->
@@ -166,37 +164,37 @@
 </div>
 <div id="subscribe_window">
 	<div class="tabs">
-		<div class="tab tab-active" id="tab_add_feed" rel="tab:subscribe_window>add_feed">add feed</div>
-		<div class="tab tab-inactive" rel="tab:subscribe_window>import_feed">import feed</div>
+		<div class="tab tab-active" id="tab_add_feed" rel="tab:subscribe_window>add_feed">フィードの追加</div>
+		<div class="tab tab-inactive" rel="tab:subscribe_window>import_feed">インポート</div>
 	</div>
 	<div class="body">
 		<div id="add_feed">
 			<%= form_tag '/api/feed/discover', id: 'discover_form' do %>
-				<b>Feed URL</b> : <input type="text" name="url" style="width:280px" id="discover_url" value="http://">
-				<input type="submit" value="next" style="width:90px">
+				<b>URL</b> : <input type="text" name="url" style="width:280px" id="discover_url" value="http://">
+				<input type="submit" value="次へ" style="width:90px">
 			<% end -%>
 			<div id="discover_items"></div>
 			<div style="float:left" class="discover_help">
 				<%= link_to(subscribe_index_path) do %>
-					<img src="/img/icon/new_window.gif" border="none">
+					<img src="/img/icon/new_window.gif">
 				<% end -%>
 			</div>
 		</div>
 		<div id="import_feed" style="display:none">
 			<%= form_tag import_path, multipart: true, target: '_blank' do %>
-				<b>file</b> : <input type="file" name="opml" style="width:230px"> <input type="submit" value=" Upload " style="width:90px">
+				<b>ファイル選択</b> : <input type="file" name="opml" style="width:230px"> <input type="submit" value=" アップロード " style="width:90px">
 			<% end -%>
 			<%= form_tag import_path, multipart: true, target: '_blank' do %>
-				<b>OPML URL</b> : <input type="text" name="url" value="http://" style="width:280px"> <input type="submit" value=" Import from URL " style="width:90px">
+				<b>URL</b> : <input type="text" name="url" value="http://" style="width:280px"> <input type="submit" value=" 取得 " style="width:90px">
 			<% end -%>
 			<div style="float:left" class="discover_help">
 				<%= link_to(import_path) do %>
-					<img src="/img/icon/new_window.gif" border="none">
+					<img src="/img/icon/new_window.gif">
 				<% end -%>
 			</div>
 		</div>
 		<div class="close">
-			<span class="button" onclick="Control.hide_subscribe_form()">Close</span>
+			<span class="button" onclick="Control.hide_subscribe_form()">閉じる</span>
 		</div>
 	</div>
 </div>
@@ -204,7 +202,7 @@
 <div style="display:none;position:absolute;right:79px;background:#f0f0f0;padding:5px;top:0px;font-size:12px;border:1px solid #4889fd" id="ads_top_description">[% ad.description | html %]</div>
 
 <div id="keyhelp">
-	<h2>Shortcut Keys<kbd>?</kbd></h2>
+	<h2>ショートカットキー一覧 <kbd>?</kbd></h2>
 	<div id="keybind_table"></div>
 	<p class="notice">
 	</p>
@@ -239,7 +237,7 @@
 <textarea class="template" id="discover_select_unsub">
 <div class="discover_item">
 	<div style="float:right" id="" class="[[ subscribed ]]">
-		<a href="[[feedlink]]" rel="unsubscribe" class="unsub_button">Unsubscribe</a><br>
+		<a href="[[feedlink]]" rel="unsubscribe" class="unsub_button">購読停止</a><br>
 	</div>
 	<img src="<%= Addressable::URI.unescape(favicon_path('[[feedlink]]')) %>" width="16" height="16"> <a href="[[link]]">[[title]]</a>
 	&nbsp;|&nbsp;&nbsp;<b style="color:#717578">[[subscribers_count]]</b><span style="color:#717578"> [[users]]</span>
@@ -489,6 +487,11 @@ function ads_mouseout(){
 }
 </script>
 <%= javascript_include_tag "reader" %>
+<%= javascript_include_tag "i18n/ja" %>
+<script type=text/javascript>
+  I18n.defaultLocale = "<%= I18n.default_locale %>";
+  I18n.locale = "<%= I18n.locale %>";
+</script>
 
 </body>
 </html>

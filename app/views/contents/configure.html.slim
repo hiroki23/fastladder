@@ -1,21 +1,22 @@
 #config style="padding:0 10px;width:95%"
-  h2 style="margin-top:0" Fastladder Settings
+  h2 style="margin-top:0" 設定変更
   = form_for :save, url: api_config_save_path, html: {id: "config_form", style: "clear: both; width: 100%; display: block;", onreset: "Form.fill(this, app.config); return false;"} do |f|
     .tabs
-      #tab_config_basic.tab.tab-active rel="tab:config_form>config_basic" General
-      #tab_config_view.tab rel="tab:config_form>config_view" Display
-      #tab_config_pin.tab rel="tab:config_form>config_pin" Pin
-      #tab_config_share.tab rel="tab:config_form>config_share" Share
-      #tab_config_detail.tab rel="tab:config_form>config_detail" Detail
+      #tab_config_basic.tab.tab-active rel="tab:config_form>config_basic" 基本設定
+      #tab_config_view.tab rel="tab:config_form>config_view" 表示設定
+      #tab_config_pin.tab rel="tab:config_form>config_pin" ピンの設定
+      #tab_config_custom_clip.tab rel="tab:config_form>config_custom_clip" クリップの設定
+      #tab_config_share.tab rel="tab:config_form>config_share" 共有設定
+      #tab_config_detail.tab rel="tab:config_form>config_detail" 詳細設定
     #config_container style="clear:both; text-align: center;"
       #config_basic style="display:none"
         table
           tr
-            th= link_to "Subscribe to feed", subscribe_path(url: "")
-            td Click 'Add' icon and enter the feed URL.
+            th= link_to "RSSフィードの登録", subscribe_path(url: "")
+            td 「追加」アイコンをクリック。URLを入力してRSSフィードを選んでください。
           tr
-            th= link_to "Manage subscription list", "#manage", onclick: "init_manage(); return false;"
-            td Click 'Edit' icon to manage 'My Feeds'.
+            th= link_to "フォルダとアイテムの編集", "#manage", onclick: "init_manage(); return false;"
+            td 「編集」アイコンをクリック。マイフィードの詳細情報が一覧で表示されます。
           tr.last
             th= link_to "Browser buttons", utility_bookmarklet_path
             td Add new feeds to your subscription list with an easy-access browser button.
@@ -23,210 +24,241 @@
       #config_view style="display:none"
         table
           tr
-            th= f.label :current_font, "Font size"
+            th= f.label :current_font, "本文の文字サイズ"
             td
               = f.text_field :current_font, size: 4, name: "current_font"
               | px
           tr
-            th Sort order
+            th 記事の表示順
             td
               = f.label :reverse_mode_0 do
                 = f.radio_button :reverse_mode, 0, name: "reverse_mode"
-                | New articles first
+                | 新着順
               br
               = f.label :reverse_mode_1 do
                 = f.radio_button :reverse_mode, 1, name: "reverse_mode"
-                | Old articles first
+                | 旧着順 (古い記事が上に表示されます)
           tr
-            th Number of 'My Feeds' to show
+            th マイフィードの表示件数
             td
-              p For shorter loading time, set the limit smaller.
+              p
+                | 表示件数を制限することでマイフィードの表示にかかる時間を短くすることができます。
+                br
+                |  (例えば「新着順」で表示している場合は最近更新された100件のみの表示になります)
               = f.label :use_limit_subs_1 do
                 = f.radio_button :use_limit_subs, 1, name: "use_limit_subs"
-                | Set limit to
+                | 表示件数を制限する
                 = f.text_field :limit_subs, value: 100, size: 4, name: "limit_subs"
-                | feeds
+                | 件
               br
               = f.label :use_limit_subs_0 do
                 = f.radio_button :use_limit_subs, 0, name: "use_limit_subs"
-                | Display all
+                | 全件表示する
           tr
-            th Highlight
+            th フォーカスの強調
             td
-              | Highlight selected article when using keyboard shortcuts.
+              | ショートカットキーのターゲットになる記事を強調表示します。
               br
               = f.label :use_scroll_hilight_1 do
                 = f.radio_button :use_scroll_hilight, 1, name: "use_scroll_hilight"
-                | Enable
+                | 有効
               br
               = f.label :use_scroll_hilight_0 do
                 = f.radio_button :use_scroll_hilight, 0, name: "use_scroll_hilight"
-                | Diable
+                | 無効
               br
           tr
-            th= f.label :max_view, "Number of new articles per page"
+            th= f.label :max_view, "記事の表示件数"
             td
-              | Number of articles to open when you first click on a feed.
+              | 一画面に最大で表示する記事の件数を設定できます
               br
               = f.text_field :max_view, value: 200, name: "max_view", size: 4
-              | articles (max: 200)
+              | 件 (最大200)
           tr
-            th= f.label :items_per_page, "Number of old articles per page" 
-              td
-                | Number of articles to open when you click "older".
-                br
-                = f.text_field :items_per_page, value: 20, name: "items_per_page", size: 4
-                | articles (max: 200)
+            th= f.label :items_per_page, "過去記事の表示件数"
+            td
+              | 過去記事を表示する際に、一度に何件取得するかを設定できます
+              br
+              = f.text_field :items_per_page, value: 20, name: "items_per_page", size: 4
+              | 件 (最大200)
       #config_detail style="display:none"
         table width="100%"
           tr
-            th When to mark a feed as read
+            th 既読にするタイミング
             td
               ul
                 li
                   = f.label :touch_when_onload do
                     = f.radio_button :touch_when, "onload", name: "touch_when"
-                    | Immediately after loading.
+                    | 読み込み直後
                 li
                   = f.label :touch_when_onclose do
                     = f.radio_button :touch_when, "onclose", name: "touch_when"
-                    | When moving to the next feed.
+                    | 別の記事にフォーカスする時
                 li
                   = f.label :touch_when_manual do
                     = f.radio_button :touch_when, "manual", name: "touch_when"
-                    | When marked as read.
+                    | 手動
           tr
-            th Prefetching
+            th 先読み件数の調整
             td
-              | Set the number of feeds to prefetch
+              | フィードの先読み件数を調整できます
               br
               = f.label :use_prefetch_hack_1 do
                 = f.radio_button :use_prefetch_hack, 1, name: "use_prefetch_hack"
+                | 任意:&nbsp;
                 = f.text_field :prefetch_num, name: "prefetch_num", size: 2
-                | items (max: 5)
+                | 件 (0～5件)
               br
               = f.label :use_prefetch_hack_0 do
                 = f.radio_button :use_prefetch_hack, 0, name: "use_prefetch_hack"
-                | Use default setting
+                | デフォルト設定に従う
           tr
-            th Scroll speed
+            th ウェイト調整
             td
-              | Scroll speed when using keyboard shortcuts
+              | キーボードショートカットでのスクロールにウェイトを入れます
               br
               = f.label :use_wait_1 do
                 = f.radio_button :use_wait, 1, name: "use_wait"
-                | Enable: 
+                | 有効:&nbsp;
                 = f.text_field :wait, value: 200, name: "wait", size: 6
-                |  milliseconds
+                |  ミリ秒
               br
               = f.label :use_wait_0 do
                 = f.radio_button :use_wait, 0, name: "use_wait"
-                | Disable
+                | 無効
           tr
-            th Scroll control
+            th スクロール量の調整
             td
-              | Scroll unit (via space key)
+              | スペースキーでのスクロール量を調整できます
               br
               = f.label :scroll_type_page do
                 = f.radio_button :scroll_type, "page", name: "scroll_type"
-                | One screen
+                | 1画面分
               br
               = f.label :scroll_type_half do
                 = f.radio_button :scroll_type, "half", name: "scroll_type"
-                | Half screen
+                | 画面の半分
               br
               = f.label :scroll_type_px do
                 = f.radio_button :scroll_type, "px", name: "scroll_type"
-                | Precisely 
+                | 任意:&nbsp;
                 = f.text_field :scroll_px, value: 100, name: "scroll_px", size: 6
                 | px
           tr
-            th Automatic update of 'My Feeds'
+            th マイフィードを自動更新
             td
               = f.label :use_autoreload_1 do
                 = f.radio_button :use_autoreload, 1, name: "use_autoreload"
-                | Enable: Reload every 
+                | 有効:&nbsp;
                 = f.text_field :autoreload, name: "autoreload", size: 6
-                | seconds. (min: 60 secs)
+                | 秒ごとに更新する (最短60秒)
               br
               = f.label :use_autoreload_0 do
                 = f.radio_button :use_autoreload, 0, name: "use_autoreload"
-                | Disable
+                | 無効
       #config_pin style="display:none"
         table width="100%"
           tr
-            th Pin backup
+            th ピンのバックアップ
             td
-              | Let Fastladder remember your pin state (up to 100 changes).
+              | ピンの状態をサーバーに保存します(100件まで)
               br
               = f.label :use_pinsaver_1 do
                 = f.radio_button :use_pinsaver, 1, name: "use_pinsaver"
-                | Enable
+                | 有効
               br
               = f.label :use_pinsaver_0 do
                 = f.radio_button :use_pinsaver, 0, name: "use_pinsaver"
-                | Disable
+                | 無効
           tr
-            th= f.label :max_pin, "Open limitation"
+            th= f.label :max_pin, "一度に開くウィンドウの数"
             td
-              | Open 
+              | 一度に
               = f.text_field :max_pin, name: "max_pin", size: 4
-              |  tabs at a time.
+              |  件まで開く
           tr
-            th Pop-up window
+            th ポップアップ表示の設
             td
-              | To open articles with 'Pin' function, please set your browser to allow pop-ups on "#{reader_url}".
+              | ピンを使って記事をまとめて開くにはポップアップブロックを無効にする必要があります。 #{reader_url} に対してポップアップ表示を許可してください。
               br
-              = link_to "Click on this link to test if pop-ups are enabled(3 new windows will open on success).", "#", onclick: "(3).times(function(){window.open()}); return false;"
+              = link_to "ポップアップ表示のテスト(ウィンドウが三つ開きます)", "#", onclick: "(3).times(function(){window.open()}); return false;"
+      #config_custom_clip style="display:none"
+        table width="100%"
+          tr
+            th クリップボタンの設定
+            <td>
+              <select name="use_custom_clip" id="custom_clip" onchange="custom_clip_change.call(this,event)">
+                <option value="on" selected="">サービスを選択してください</option>
+              </select>
+              <div id="config_for_customclip" style="display: block;">
+                <dl>
+                  <dt>ジャンプするURL(別ウィンドウに表示されます)</dt>
+                  <dd>
+                  <input type="text" name="custom_clip_url" value="http://" style="width:80%">
+                  </dd>
+                </dl>
+
+                  |　[[title]] は記事のタイトル<br>
+                  |　[[url]] は記事のURL<br>
+                  |　[[select]] は選択文字列<br>
+                  | に置き換えられます。
+                </pre>
+              </div>
+            </td>
       #config_share style="display:none"
         table width="100%"
           tr
             td colspan="2"
               p
-                | To share your subscriptions with others, configure 
-                = link_to "Manage Sharing", share_path
-                | .
+                | フィードの共有機能を使うと自分の登録しているフィードを公開することが出来ます。
+                br
+                | 初期状態では全てのフィードが「非公開」の状態になっています。
+                br
+                | #{link_to "フィードの共有設定", share_path}から今まで登録したフィードの公開状態を変更することができます。
           tr
-            th Sharing subscriptions
+            th マイフィードの共有
             td
-              | If you enable sharing, others can read your public subscriptions at "#{user_url(current_member.username)}"
+              | 「
+              b #{user_url(current_member.username)}
+              | 」で
+              br
+              | 公開状態のフィードにアクセスできるようになります。
               - if current_member.public
                 | (
-                = link_to "Show public subscriptions", user_path(current_member.username)
+                = link_to "表示を確認する", user_path(current_member.username)
                 | )
               br
               = f.label :member_public_1 do
                 = f.radio_button :member_public, 1, name: "member_public", checked: current_member.public
-                | Enable Sharing
+                | 有効にする
               br
               = f.label :member_public_0 do
                 = f.radio_button :member_public, 0, name: "member_public", checked: !current_member.public
-                | Disable Sharing
+                | 無効にする
           tr
-            th Default
+            th 登録時のデフォルト設定
             td
-              | Default setting for new subscriptions
-              br
               = f.label :default_public_status_1 do
                 = f.radio_button :default_public_status, 1, name: "default_public_status"
-                | Public
+                | 公開する
               br
               = f.label :default_public_status_0 do
                 = f.radio_button :default_public_status, 0, name: "default_public_status"
-                | Private
+                | 公開しない
       #config_submit
         table
           tr.submit
             td style="text-align: center;"
-              = f.button "Cancel", type: "reset"
-              = f.submit "Save"
-  h2 Import / Export Subscription List
+              = f.submit "キャンセル", type: "reset"
+              = f.submit "設定を変更"
+  h2 データのインポート / エクスポート
   table.link
     tr
       th nowrap=true style="padding : 0 10px"
-       = link_to "Import", import_path
-      td Import OPML subscription list to Fastladder.
+       = link_to "インポート", import_path
+      td OPML形式のフィードリストを取り込むことができます。
     tr
       th nowrap=true style="padding : 0 10px"
-        = link_to "Export", export_path, download: "export.opml"
-      td Create backup of current subscription list in OPML. Follow the link and select 'Save'.
+        = link_to "エクスポート", export_path, download: "export.opml"
+      td OPML形式のフィードリストをバックアップすることができます。リンクをクリックして「ファイルに保存」を選んでください。レートの設定やNotifierへの通知の設定はバックアップできませんのでご注意ください。

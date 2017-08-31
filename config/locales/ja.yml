@@ -32,13 +32,14 @@ ja:
   Loading completed.: ロード完了
 
   unread_count_tmpl: '未読 [[feed_count]]フィード&nbsp;&nbsp;|&nbsp;&nbsp;[[count]]エントリ'
-  unread_count_title_tmpl: 'livedoor Reader ([[count]])'
+  unread_count_title_tmpl: 'Live D Reader ([[count]])'
   mark_all_read_tmpl: '[[count]]件のフィードを既読にします。よろしいですか？'
   There is no item to mark as read: 既読にすべきフィードがありません
   notice_ime_off: ※ショートカットキーが使えない場合は日本語入力を無効にしてみてください。
   manage_unsubscribe_confirm_tmpl: '[[ count ]]件のフィードの登録を解除します。よろしいですか？'
   manage_unsubscribe_progress_tmpl: 'フィードを削除しています:残り[[remain]]件'
   manage_folder_delete_confirm: '[[folder]]を削除してよろしいですか？(中のアイテムは削除されません)'
+  show_all_help_message_tmpl: '新着のみの表示にすると動作が軽くなります<br>現在 : [[ state ]]'
   unsubscribe_confirm: '「[[title]]」の登録を解除しますか？'
   unsubscribe_confirm2: 登録を解除しますか？
 
@@ -60,3 +61,18 @@ ja:
   leave it uncategorized: 未分類
   uncategorized: 未分類
   New Folder Name: 新しいフォルダ名を入力してください
+
+  # content manage
+  Folder Name: フォルダ名
+  Uncategolized: 未分類　
+  All: すべて
+  Select items you want to edit: 編集したいアイテムを選択してください
+  items selected: 件選択されています
+  Unsubscribe: 購読停止
+  Create New Folder: 新規フォルダ
+
+  account:
+    password: パスワード
+    apikey: APIキー
+    backup: バックアップ
+    share: シェア

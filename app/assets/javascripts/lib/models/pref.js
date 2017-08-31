@@ -145,7 +145,7 @@
 		{title: I18n.t("Settings", options), action:"init_config()"},
 		{title: I18n.t("Edit Subscription list", options), action:"init_manage()"},
 		'-----',
-		{title: I18n.t("Expanded view / List view", options), action:"Control.compact()"},
+		{title: I18n.t("Expanded view or List view", options), action:"Control.compact()"},
 		{title: I18n.t("Toggle order", options), action:"Control.reverse()"},
 		'-----',
 		{title: I18n.t("Mark all feeds as read", options), action:"Control.mark_all_read()"}

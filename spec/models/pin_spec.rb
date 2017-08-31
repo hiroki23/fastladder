@@ -16,7 +16,8 @@ require 'spec_helper'
 describe Pin do
   describe ".after_create" do
     it "destroy_over_limit_pins called" do
-      pin = FactoryGirl.build(:pin)
+      member = FactoryGirl.create(:member, password: 'mala', password_confirmation: 'mala')
+      pin = FactoryGirl.build(:pin, member: member)
       expect(pin).to receive(:destroy_over_limit_pins)
       pin.save
     end

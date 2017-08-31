@@ -846,7 +846,7 @@ function init_config(){
 		ajaxize("config_form",{
 			before: function(){return true},
 			after: function(res,req){
-				message("Your settings have been saved");
+				message("設定を保存しました");
 				typecast_config(req);
 				Object.extend(app.config, req);
 			}
