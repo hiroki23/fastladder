@@ -947,6 +947,16 @@ var Control = {
         var old = app.config.current_font;
         if(num == 0){to = 14} else { to = old + num }
         app.config.set("current_font", to);
+
+        // event_trigger.js のコードをコピペ
+        setStyle("right_body", {
+            fontSize: app.config.current_font + "px"
+        });
+        if(_$("config_form")){
+            Form.fill("config_form", app.config);
+        }
+        update("show_all_button");
+        update(/mode_text.*/);
     },
     load_config: function(){},
     save_config: function(){},
